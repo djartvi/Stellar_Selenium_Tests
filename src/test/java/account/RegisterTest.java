@@ -1,12 +1,11 @@
-package login;
+package account;
 
+import credentials.Password;
+import credentials.User;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import pom.BrowserSelect;
-import pom.LoginPage;
-import pom.MainPage;
-import pom.RegisterPage;
+import pom.*;
 
 import static org.junit.Assert.assertTrue;
 
@@ -33,14 +32,18 @@ public class RegisterTest {
 
     @Test
     public void registerTest() {
-        registerPage.registerRandomUser(6);
+        User user = User.randomUser(Password.VALID_LENGTH);
+
+        registerPage.registerUser(user);
 
         assertTrue(registerPage.isRegistered());
     }
 
     @Test
-    public void wrongPasswordTestTest() {
-        registerPage.registerRandomUser(5);
+    public void wrongPasswordTest() {
+        User user = User.randomUser(Password.INVALID_LENGTH);
+
+        registerPage.registerUser(user);
 
         assertTrue(registerPage.isWrongPassword());
     }

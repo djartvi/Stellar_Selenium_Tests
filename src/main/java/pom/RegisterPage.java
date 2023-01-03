@@ -1,9 +1,7 @@
 package pom;
 
-import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import credentials.User;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,6 +14,7 @@ public class RegisterPage {
     private By email = By.xpath("//*[text()='Email']/../*[@type='text']");
     private By password = By.xpath("//*[@type='password']");
     private By registerButton = By.xpath("//button[text()='Зарегистрироваться']");
+    private By loginButton = By.xpath("//*[text()='Войти']");
     private By wrongPassword = By.xpath("//*[@type='password']/../../*[text()='Некорректный пароль']");
 
     public RegisterPage(WebDriver driver) {
@@ -38,13 +37,22 @@ public class RegisterPage {
         driver.findElement(registerButton).click();
     }
 
-    public void registerRandomUser(int length) {
-        Faker faker = new Faker();
+    public void clickLoginButton() {
+        driver.findElement(loginButton).click();
+    }
 
-        inputName(faker.name().firstName());
-        inputEmail(faker.internet().safeEmailAddress());
-        inputPassword(faker.internet().password(length, length + 1));
+    public RegisterPage registerUser(User user) {
+        inputName(user.getName());
+        inputEmail(user.getEmail());
+        inputPassword(user.getPassword());
         clickRegisterButton();
+
+        return this;
+    }
+
+    public void waitRegistration() {
+        new WebDriverWait(driver, Duration.ofSeconds(3)).
+                until(ExpectedConditions.urlToBe(MainPage.getURL() + LoginPage.PREFIX));
     }
 
     public boolean isWrongPassword() {
@@ -55,13 +63,18 @@ public class RegisterPage {
         boolean result;
 
         try {
-            new WebDriverWait(driver, Duration.ofSeconds(3)).
-                    until(ExpectedConditions.urlToBe(MainPage.getURL() + "login"));
+            waitRegistration();
             result = true;
         } catch (TimeoutException e) {
             result = false;
         }
 
         return result;
+    }
+
+    public RegisterPage scrollToLoginButton() {
+        WebElement element = driver.findElement(loginButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        return this;
     }
 }

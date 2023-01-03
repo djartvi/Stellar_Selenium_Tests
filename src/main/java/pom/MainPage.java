@@ -8,7 +8,9 @@ public class MainPage {
 
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
 
-    private By accountButton = By.xpath("//*[text()='Личный Кабинет']");
+    private By shopLogo = By.xpath("//*[@class='http://www.w3.org/2000/svg']");
+    private By cabinetButton = By.xpath("//*[text()='Личный Кабинет']");
+    private By loginButton = By.xpath("//button[text()='Войти в аккаунт']");
     private By bunsButton = By.xpath("//*[contains(@class, 'tab_tab')]/*[text()='Булки']");
     private By sousesButton = By.xpath("//*[contains(@class, 'tab_tab')]/*[text()='Соусы']");
     private By filingsButton = By.xpath("//*[contains(@class, 'tab_tab')]/*[text()='Начинки']");
@@ -16,6 +18,7 @@ public class MainPage {
     private By containerSouses = By.xpath("//*[contains(@class, 'menuContainer')]/*[text()='Соусы']");
     private By containerFilings = By.xpath("//*[contains(@class, 'menuContainer')]/*[text()='Начинки']");
     private By constructor = By.xpath("//*[text()='Соберите бургер']");
+    private By makeOrderButton = By.xpath("//button[text()='Оформить заказ']");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -42,9 +45,16 @@ public class MainPage {
         return containerFilings;
     }
 
-    public MainPage clickAccountButton() {
-        driver.findElement(accountButton).click();
-        return this;
+    public void clickShopLogo() {
+        driver.findElement(shopLogo).click();
+    }
+
+    public void clickAccountButton() {
+        driver.findElement(cabinetButton).click();
+    }
+
+    public void clickLoginButton() {
+        driver.findElement(loginButton).click();
     }
 
     public MainPage clickBunsButton() {
@@ -69,5 +79,9 @@ public class MainPage {
 
     public boolean isDisplayed() {
         return driver.findElements(constructor).size() > 0;
+    }
+
+    public boolean registeredView() {
+        return driver.findElements(makeOrderButton).size() > 0;
     }
 }
