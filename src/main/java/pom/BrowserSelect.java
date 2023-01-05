@@ -10,11 +10,11 @@ import java.time.Duration;
 public class BrowserSelect extends ExternalResource {
     private WebDriver driver;
 
-    private ChromeOptions options =  new ChromeOptions();
+    private final ChromeOptions options =  new ChromeOptions();
 
-    private String YANDEX_DRIVER_PATH = "/usr/local/chromedriver/yandexdriver";
-    private String CHROME_DRIVER_PATH = "/usr/local/chromedriver/chromedriver";
-    private String YANDEX_BROWSER_PATH = "/Applications/Yandex.app/Contents/MacOS/Yandex";
+    private final String YANDEX_DRIVER_PATH = "/usr/local/chromedriver/yandexdriver";
+    private final String CHROME_DRIVER_PATH = "/usr/local/chromedriver/chromedriver";
+    private final String YANDEX_BROWSER_PATH = "/Applications/Yandex.app/Contents/MacOS/Yandex";
 
 
     public WebDriver getDriver() {
@@ -26,17 +26,19 @@ public class BrowserSelect extends ExternalResource {
 
         String browser = System.getenv("browser");
 
-        if ("ya".equals(browser)) {
+        if ("yandex".equals(browser)) {
             System.setProperty("webdriver.chrome.driver", YANDEX_DRIVER_PATH);
             options.setBinary(YANDEX_BROWSER_PATH);
             driver = new ChromeDriver(options);
-        } else {
+        } else if ("chrome".equals(browser)) {
             System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
             driver = new ChromeDriver();
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
+
+
 
     @Override
     protected void after() {

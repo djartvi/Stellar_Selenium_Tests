@@ -1,6 +1,7 @@
 package account;
 
 import credentials.User;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,6 +44,7 @@ public class LogoutTest {
     }
 
     @Test
+    @DisplayName("Check user logout")
     public void logoutTest() {
         mainPage
                 .clickAccountButton();

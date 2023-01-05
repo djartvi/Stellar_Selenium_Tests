@@ -2,6 +2,7 @@ package account;
 
 import credentials.Password;
 import credentials.User;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class RegisterTest {
     }
 
     @Test
+    @DisplayName("Check registration with valid password length")
     public void registerTest() {
         User user = User.randomUser(Password.VALID_LENGTH);
 
@@ -40,6 +42,7 @@ public class RegisterTest {
     }
 
     @Test
+    @DisplayName("Check registration with invalid password length")
     public void wrongPasswordTest() {
         User user = User.randomUser(Password.INVALID_LENGTH);
 

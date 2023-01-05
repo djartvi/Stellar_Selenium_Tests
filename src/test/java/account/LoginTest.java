@@ -1,6 +1,7 @@
 package account;
 
 import credentials.User;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,6 +38,7 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Check login from login button")
     public void loginFromLoginButtonTest() {
         mainPage
                 .open()
@@ -51,6 +53,7 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Check login from account button in header")
     public void loginFromAccountButtonTest() {
         mainPage
                 .open()
@@ -65,8 +68,8 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Check login from registration page")
     public void loginFromRegisterPageTest() {
-
         loginPage
                 .scrollToRegister()
                 .clickRegister();
@@ -84,6 +87,7 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Check login from password recovery page")
     public void loginFromPasswordRecoveryPageTest() {
         PasswordRecoveryPage passwordRecoveryPage = new PasswordRecoveryPage(browserSelect.getDriver());
 
