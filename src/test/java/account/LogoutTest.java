@@ -1,7 +1,11 @@
 package account;
 
+import api.Token;
+import api.UserClient;
 import credentials.User;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,49 +14,46 @@ import pom.*;
 import static org.junit.Assert.assertTrue;
 
 public class LogoutTest {
+
     @Rule
     public BrowserSelect browserSelect = new BrowserSelect();
 
     private MainPage mainPage;
     private LoginPage loginPage;
     private AccountPage accountPage;
+    private Response login;
+
+    private final UserClient userClient = new UserClient();
+    private final User user = User.randomUser();
+    private final Token token = new Token();
 
     @Before
-    public void registerUser() {
+    public void loginUser() throws InterruptedException {
+
         mainPage = new MainPage(browserSelect.getDriver());
         loginPage = new LoginPage(browserSelect.getDriver());
         accountPage = new AccountPage(browserSelect.getDriver());
-        RegisterPage registerPage = new RegisterPage(browserSelect.getDriver());
-        User user = User.randomUser();
 
-        mainPage
-                .open()
-                .clickAccountButton();
+        mainPage.open();
 
-        loginPage
-                .scrollToRegister()
-                .clickRegister();
-
-        registerPage
-                .registerUser(user)
-                .waitRegistration();
-
-        loginPage
-                .inputEmail(user.getEmail())
-                .inputPassword(user.getPassword())
-                .clickLoginButton();
+        userClient.register(user);
+        login = userClient.login(user);
+        token.storeTokens(browserSelect.getDriver(), login);
     }
 
     @Test
     @DisplayName("Check user logout")
     public void logoutTest() {
-        mainPage
-                .clickAccountButton();
 
-        accountPage
-                .clickLogoutButton();
+        mainPage.clickAccountButton();
+
+        accountPage.clickLogoutButton();
 
         assertTrue(loginPage.isDisplayed());
     }
 
+    @After
+    public void deleteUser() throws InterruptedException {
+        userClient.getTokenAndDeleteUser(login);
+    }
 }

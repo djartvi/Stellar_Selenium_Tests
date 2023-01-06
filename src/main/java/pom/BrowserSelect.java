@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class BrowserSelect extends ExternalResource {
+
     private WebDriver driver;
 
     private final ChromeOptions options =  new ChromeOptions();
@@ -23,7 +24,6 @@ public class BrowserSelect extends ExternalResource {
 
     @Override
     protected void before() {
-
         String browser = System.getenv("browser");
 
         if ("yandex".equals(browser)) {
@@ -37,8 +37,6 @@ public class BrowserSelect extends ExternalResource {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
-
-
 
     @Override
     protected void after() {

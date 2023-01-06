@@ -1,7 +1,9 @@
 package account;
 
+import api.UserClient;
 import credentials.User;
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,36 +12,31 @@ import pom.*;
 import static org.junit.Assert.assertTrue;
 
 public class LoginTest {
+
     @Rule
     public BrowserSelect browserSelect = new BrowserSelect();
 
-    private MainPage mainPage;
-    private LoginPage loginPage;
-    private RegisterPage registerPage;
     private User user;
 
+    private MainPage mainPage = new MainPage(browserSelect.getDriver());;
+    private LoginPage loginPage = new LoginPage(browserSelect.getDriver());;
+    private final UserClient userClient = new UserClient();
+
     @Before
-    public void registerUser() {
-        mainPage = new MainPage(browserSelect.getDriver());
-        loginPage = new LoginPage(browserSelect.getDriver());
-        registerPage = new RegisterPage(browserSelect.getDriver());
+    public void registerUser() throws InterruptedException {
+
+        mainPage = new MainPage(browserSelect.getDriver());;
+        loginPage = new LoginPage(browserSelect.getDriver());;
+
         user = User.randomUser();
 
-        mainPage
-                .open()
-                .clickAccountButton();
-
-        loginPage
-                .scrollToRegister()
-                .clickRegister();
-
-        registerPage
-                .registerUser(user);
+        userClient.register(user);
     }
 
     @Test
     @DisplayName("Check login from login button")
     public void loginFromLoginButtonTest() {
+
         mainPage
                 .open()
                 .clickLoginButton();
@@ -55,6 +52,7 @@ public class LoginTest {
     @Test
     @DisplayName("Check login from account button in header")
     public void loginFromAccountButtonTest() {
+
         mainPage
                 .open()
                 .clickAccountButton();
@@ -70,13 +68,12 @@ public class LoginTest {
     @Test
     @DisplayName("Check login from registration page")
     public void loginFromRegisterPageTest() {
-        loginPage
-                .scrollToRegister()
-                .clickRegister();
 
-        registerPage
-                .scrollToLoginButton()
-                .clickLoginButton();
+        RegisterPage registerPage = new RegisterPage(browserSelect.getDriver());
+
+        mainPage.goToPage(RegisterPage.getPrefix());
+
+        registerPage.clickLoginButton();
 
         loginPage
                 .inputEmail(user.getEmail())
@@ -89,11 +86,10 @@ public class LoginTest {
     @Test
     @DisplayName("Check login from password recovery page")
     public void loginFromPasswordRecoveryPageTest() {
+
         PasswordRecoveryPage passwordRecoveryPage = new PasswordRecoveryPage(browserSelect.getDriver());
 
-        loginPage
-                .scrollToPasswordRecovery()
-                .clickPasswordRecoveryButton();
+        mainPage.goToPage(PasswordRecoveryPage.getPREFIX());
 
         passwordRecoveryPage
                 .clickLoginButton();
@@ -104,5 +100,10 @@ public class LoginTest {
                 .clickLoginButton();
 
         assertTrue(mainPage.registeredView());
+    }
+
+    @After
+    public void assertAndDeleteUser() throws InterruptedException {
+        userClient.getTokenAndDeleteUser(userClient.login(user));
     }
 }

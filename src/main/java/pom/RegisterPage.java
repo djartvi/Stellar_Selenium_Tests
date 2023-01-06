@@ -9,6 +9,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class RegisterPage {
+
+    private static final String PREFIX = "register";
+
     private final WebDriver driver;
 
     private final By name = By.xpath("//*[text()='Имя']/../*[@type='text']");
@@ -20,6 +23,10 @@ public class RegisterPage {
 
     public RegisterPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public static String getPrefix() {
+        return PREFIX;
     }
 
     @Step("Input name into name field")
@@ -60,7 +67,7 @@ public class RegisterPage {
     @Step("Waiting for visibility of login page")
     public void waitRegistration() {
         new WebDriverWait(driver, Duration.ofSeconds(3)).
-                until(ExpectedConditions.urlToBe(MainPage.getURL() + LoginPage.PREFIX));
+                until(ExpectedConditions.urlToBe(MainPage.getURL() + LoginPage.getPREFIX()));
     }
 
     @Step("Check wrong password warning under the password field")
@@ -80,12 +87,5 @@ public class RegisterPage {
         }
 
         return result;
-    }
-
-    @Step("Scroll to element to make it visible")
-    public RegisterPage scrollToLoginButton() {
-        WebElement element = driver.findElement(loginButton);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        return this;
     }
 }

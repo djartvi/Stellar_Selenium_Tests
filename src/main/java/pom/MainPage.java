@@ -2,9 +2,14 @@ package pom;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class MainPage {
+
     private final WebDriver driver;
 
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
@@ -24,14 +29,20 @@ public class MainPage {
         this.driver = driver;
     }
 
-    @Step("Open page " + URL)
-    public MainPage open() {
-        driver.get(URL);
-        return this;
-    }
-
     public static String getURL() {
         return URL;
+    }
+
+    public By getBunsButton() {
+        return bunsButton;
+    }
+
+    public By getSousesButton() {
+        return sousesButton;
+    }
+
+    public By getFilingsButton() {
+        return filingsButton;
     }
 
     public By getContainerBuns() {
@@ -44,6 +55,12 @@ public class MainPage {
 
     public By getContainerFilings() {
         return containerFilings;
+    }
+
+    @Step("Open page " + URL)
+    public MainPage open() {
+        driver.get(URL);
+        return this;
     }
 
     @Step("Click account button in header")
@@ -81,12 +98,31 @@ public class MainPage {
     }
 
     @Step("Check visibility of constructor on main page")
-    public boolean isDisplayed() {
+    public boolean isConstructorDisplayed() {
         return driver.findElements(constructor).size() > 0;
     }
 
     @Step("Check visibility of main page for registered user")
     public boolean registeredView() {
         return driver.findElements(makeOrderButton).size() > 0;
+    }
+
+    @Step("Go to page " + URL + "{prefix}")
+    public void goToPage(String prefix) {
+        driver.get(MainPage.getURL() + prefix);
+    }
+
+    @Step("Check active button")
+    public boolean isActiveButton(By by) {
+        List<WebElement> elements = driver.findElement(by)
+                .findElements(By.xpath("parent::*[contains(@class, 'current')]"));
+
+        return elements.size() > 0;
+    }
+
+    @Step("Scroll to element")
+    public void scrollToElement(By by) {
+        WebElement element = driver.findElement(by);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 }

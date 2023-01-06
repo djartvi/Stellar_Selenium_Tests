@@ -10,6 +10,7 @@ import pom.MainPage;
 import static org.junit.Assert.assertTrue;
 
 public class ConstructorTest {
+
     @Rule
     public BrowserSelect browserSelect = new BrowserSelect();
 
@@ -17,6 +18,7 @@ public class ConstructorTest {
 
     @Before
     public void openMainPage() {
+
         mainPage = new MainPage(browserSelect.getDriver());
 
         mainPage.open();
@@ -24,7 +26,8 @@ public class ConstructorTest {
 
     @Test
     @DisplayName("Check buttons switching in constructor section")
-    public void constructorSelectionTest() throws InterruptedException {
+    public void constructorButtonsTest() throws InterruptedException {
+
         int sousesY = mainPage
                 .clickSousesButton()
                 .getElementLocation(mainPage.getContainerSouses());
@@ -38,5 +41,21 @@ public class ConstructorTest {
                 .getElementLocation(mainPage.getContainerBuns());
 
         assertTrue(sousesY==filingsY && sousesY==bunsY);
+    }
+
+    @Test
+    @DisplayName("Check manual scrolling in constructor section")
+    public void constructorScrollingTest() {
+
+        mainPage.scrollToElement(mainPage.getContainerBuns());
+        boolean isBunsButtonActive = mainPage.isActiveButton(mainPage.getBunsButton());
+
+        mainPage.scrollToElement(mainPage.getContainerSouses());
+        boolean isSousesButtonActive = mainPage.isActiveButton(mainPage.getSousesButton());
+
+        mainPage.scrollToElement(mainPage.getContainerFilings());
+        boolean isFilingsButtonActive = mainPage.isActiveButton(mainPage.getFilingsButton());
+
+        assertTrue(isBunsButtonActive && isSousesButtonActive && isFilingsButtonActive);
     }
 }
