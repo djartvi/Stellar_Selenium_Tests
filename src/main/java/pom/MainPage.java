@@ -1,6 +1,9 @@
 package pom;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -8,11 +11,15 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+@Getter
+@RequiredArgsConstructor
 public class MainPage {
 
-    private final WebDriver driver;
-
+    @Getter
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
+
+    @NonNull
+    private final WebDriver driver;
 
     private final By cabinetButton = By.xpath("//*[text()='Личный Кабинет']");
     private final By loginButton = By.xpath("//button[text()='Войти в аккаунт']");
@@ -24,38 +31,6 @@ public class MainPage {
     private final By containerFilings = By.xpath("//*[contains(@class, 'menuContainer')]/*[text()='Начинки']");
     private final By constructor = By.xpath("//*[text()='Соберите бургер']");
     private final By makeOrderButton = By.xpath("//button[text()='Оформить заказ']");
-
-    public MainPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public static String getURL() {
-        return URL;
-    }
-
-    public By getBunsButton() {
-        return bunsButton;
-    }
-
-    public By getSousesButton() {
-        return sousesButton;
-    }
-
-    public By getFilingsButton() {
-        return filingsButton;
-    }
-
-    public By getContainerBuns() {
-        return containerBuns;
-    }
-
-    public By getContainerSouses() {
-        return containerSouses;
-    }
-
-    public By getContainerFilings() {
-        return containerFilings;
-    }
 
     @Step("Open page " + URL)
     public MainPage open() {
@@ -109,7 +84,7 @@ public class MainPage {
 
     @Step("Go to page " + URL + "{prefix}")
     public void goToPage(String prefix) {
-        driver.get(MainPage.getURL() + prefix);
+        driver.get(MainPage.URL + prefix);
     }
 
     @Step("Check active button")

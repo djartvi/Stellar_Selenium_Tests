@@ -1,5 +1,6 @@
 package pom;
 
+import lombok.Getter;
 import org.junit.rules.ExternalResource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,32 +10,31 @@ import java.time.Duration;
 
 public class BrowserSelect extends ExternalResource {
 
+    @Getter
     private WebDriver driver;
 
-    private final ChromeOptions options =  new ChromeOptions();
-
-    private final String YANDEX_DRIVER_PATH = "/usr/local/chromedriver/yandexdriver";
-    private final String CHROME_DRIVER_PATH = "/usr/local/chromedriver/chromedriver";
-    private final String YANDEX_BROWSER_PATH = "/Applications/Yandex.app/Contents/MacOS/Yandex";
-
-
-    public WebDriver getDriver() {
-        return driver;
-    }
+    private static final String YANDEX_DRIVER_PATH = "/usr/local/chromedriver/yandexdriver";
+    private static final String CHROME_DRIVER_PATH = "/usr/local/chromedriver/chromedriver";
+    private static final String YANDEX_BROWSER_PATH = "/Applications/Yandex.app/Contents/MacOS/Yandex";
 
     @Override
     protected void before() {
-        String browser = System.getenv("browser");
+        ChromeOptions chromeOptions =  new ChromeOptions()
+                .addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+
+        String browser = System.getProperty("browser");
 
         if ("yandex".equals(browser)) {
             System.setProperty("webdriver.chrome.driver", YANDEX_DRIVER_PATH);
-            options.setBinary(YANDEX_BROWSER_PATH);
-            driver = new ChromeDriver(options);
+
+            chromeOptions.setBinary(YANDEX_BROWSER_PATH);
+
+            driver = new ChromeDriver(chromeOptions);
         } else if ("chrome".equals(browser)) {
             System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
-            driver = new ChromeDriver();
-        }
 
+            driver = new ChromeDriver(chromeOptions);
+        }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 

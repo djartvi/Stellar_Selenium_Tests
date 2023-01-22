@@ -1,26 +1,24 @@
 package pom;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+@RequiredArgsConstructor
 public class LoginPage {
 
+    @Getter
     private static final String PREFIX = "login";
 
+    @NonNull
     private final WebDriver driver;
 
     private final By email = By.xpath("//*[@type='text']");
     private final By password = By.xpath("//*[@type='password']");
     private final By loginButton = By.xpath("//button[text()='Войти']");
-
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public static String getPREFIX() {
-        return PREFIX;
-    }
 
     @Step("Input email into email field")
     public LoginPage inputEmail(String email) {

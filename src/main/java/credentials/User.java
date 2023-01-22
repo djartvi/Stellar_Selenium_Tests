@@ -1,19 +1,16 @@
 package credentials;
 
 import com.github.javafaker.Faker;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
 public class User {
 
-    private String name;
-    private String email;
-    private String password;
-
-
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+    private final String name;
+    private final String email;
+    private final String password;
 
     public static User randomUser() {
         Faker faker = new Faker();
@@ -33,17 +30,5 @@ public class User {
         String password = faker.internet().password(length, length + 1);
 
         return new User(name, email, password);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

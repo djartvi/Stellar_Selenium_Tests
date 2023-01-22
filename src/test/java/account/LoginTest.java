@@ -18,15 +18,15 @@ public class LoginTest {
 
     private User user;
 
-    private MainPage mainPage = new MainPage(browserSelect.getDriver());;
-    private LoginPage loginPage = new LoginPage(browserSelect.getDriver());;
+    private MainPage mainPage;
+    private LoginPage loginPage;
     private final UserClient userClient = new UserClient();
 
     @Before
     public void registerUser() throws InterruptedException {
 
-        mainPage = new MainPage(browserSelect.getDriver());;
-        loginPage = new LoginPage(browserSelect.getDriver());;
+        mainPage = new MainPage(browserSelect.getDriver());
+        loginPage = new LoginPage(browserSelect.getDriver());
 
         user = User.randomUser();
 
@@ -71,7 +71,7 @@ public class LoginTest {
 
         RegisterPage registerPage = new RegisterPage(browserSelect.getDriver());
 
-        mainPage.goToPage(RegisterPage.getPrefix());
+        mainPage.goToPage(RegisterPage.getPREFIX());
 
         registerPage.clickLoginButton();
 

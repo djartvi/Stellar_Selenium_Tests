@@ -38,6 +38,7 @@ public class NavigationUserLoggedInTest {
 
         userClient.register(user);
         login = userClient.login(user);
+
         new Token().storeTokens(browserSelect.getDriver(), login);
 
         mainPage.clickAccountButton();

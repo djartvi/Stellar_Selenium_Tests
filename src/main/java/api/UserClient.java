@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 public class UserClient extends RestClient {
+
     private final String PREFIX = "/api/auth/";
 
     @Step("API register user {user.email}, {user.password}")

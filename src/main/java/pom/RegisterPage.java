@@ -2,16 +2,22 @@ package pom;
 
 import credentials.User;
 import io.qameta.allure.Step;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+@RequiredArgsConstructor
 public class RegisterPage {
 
+    @Getter
     private static final String PREFIX = "register";
 
+    @NonNull
     private final WebDriver driver;
 
     private final By name = By.xpath("//*[text()='Имя']/../*[@type='text']");
@@ -20,14 +26,6 @@ public class RegisterPage {
     private final By registerButton = By.xpath("//button[text()='Зарегистрироваться']");
     private final By loginButton = By.xpath("//*[text()='Войти']");
     private final By wrongPassword = By.xpath("//*[@type='password']/../../*[text()='Некорректный пароль']");
-
-    public RegisterPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public static String getPrefix() {
-        return PREFIX;
-    }
 
     @Step("Input name into name field")
     public void inputName(String name) {
@@ -55,13 +53,12 @@ public class RegisterPage {
     }
 
     @Step("Register user")
-    public RegisterPage registerUser(User user) {
+    public void registerUser(User user) {
         inputName(user.getName());
         inputEmail(user.getEmail());
         inputPassword(user.getPassword());
         clickRegisterButton();
 
-        return this;
     }
 
     @Step("Waiting for visibility of login page")
