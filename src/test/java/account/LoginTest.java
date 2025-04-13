@@ -3,13 +3,13 @@ package account;
 import api.UserClient;
 import base.BaseTest;
 import credentials.User;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import pom.*;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest extends BaseTest {
 
@@ -19,7 +19,7 @@ public class LoginTest extends BaseTest {
     private LoginPage loginPage;
     private final UserClient userClient = new UserClient();
 
-    @Before
+    @BeforeEach
     public void registerUser() throws InterruptedException {
 
         mainPage = new MainPage(browserSelect.getDriver());
@@ -99,7 +99,7 @@ public class LoginTest extends BaseTest {
         assertTrue(mainPage.registeredView());
     }
 
-    @After
+    @AfterEach
     @DisplayName("Delete user")
     public void deleteUser() throws InterruptedException {
         userClient.getTokenAndDeleteUser(userClient.login(user));

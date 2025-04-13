@@ -4,13 +4,13 @@ import api.UserClient;
 import base.BaseTest;
 import credentials.Password;
 import credentials.User;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pom.*;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RegisterTest extends BaseTest {
 
@@ -19,7 +19,7 @@ public class RegisterTest extends BaseTest {
 
     private final UserClient userClient = new UserClient();
 
-    @Before
+    @BeforeEach
     public void goToRegisterPage() {
 
         MainPage mainPage = new MainPage(browserSelect.getDriver());
@@ -50,7 +50,7 @@ public class RegisterTest extends BaseTest {
         assertTrue(registerPage.isWrongPassword());
     }
 
-    @After
+    @AfterEach
     @DisplayName("Delete user")
     public void deleteUser() throws InterruptedException {
 

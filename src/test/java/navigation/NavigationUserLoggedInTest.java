@@ -5,15 +5,16 @@ import api.UserClient;
 import base.BaseTest;
 import credentials.User;
 import io.qameta.allure.Description;
-import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pom.AccountPage;
 import pom.MainPage;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class NavigationUserLoggedInTest extends BaseTest {
 
@@ -24,7 +25,7 @@ public class NavigationUserLoggedInTest extends BaseTest {
     private final UserClient userClient = new UserClient();
     private final User user = User.randomUser();
 
-    @Before
+    @BeforeEach
     public void goToRegisteredUserAccount() throws InterruptedException {
 
         mainPage = new MainPage(browserSelect.getDriver());
@@ -68,7 +69,7 @@ public class NavigationUserLoggedInTest extends BaseTest {
         assertTrue(mainPage.isConstructorDisplayed());
     }
 
-    @After
+    @AfterEach
     public void deleteUser() throws InterruptedException {
         userClient.getTokenAndDeleteUser(login);
     }

@@ -1,11 +1,11 @@
 package base;
 
-
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import pom.BrowserSelect;
+
 
 public abstract class BaseTest {
 
-    @Rule
-    public BrowserSelect browserSelect = new BrowserSelect();
+    @RegisterExtension
+    protected BrowserSelect browserSelect = new BrowserSelect();
 }

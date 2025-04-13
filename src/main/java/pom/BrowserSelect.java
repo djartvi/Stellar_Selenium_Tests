@@ -1,7 +1,9 @@
 package pom;
 
 import lombok.Getter;
-import org.junit.rules.ExternalResource;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,7 +12,7 @@ import java.time.Duration;
 import java.util.logging.Logger;
 
 @Getter
-public class BrowserSelect extends ExternalResource {
+public class BrowserSelect implements BeforeEachCallback, AfterEachCallback {
 
     private WebDriver driver;
 
@@ -19,7 +21,7 @@ public class BrowserSelect extends ExternalResource {
     private static final String YANDEX_BROWSER_PATH = "/Applications/Yandex.app/Contents/MacOS/Yandex";
 
     @Override
-    protected void before() {
+    public void beforeEach(ExtensionContext extensionContext) throws Exception {
 
         ChromeOptions options =  new ChromeOptions();
 
@@ -42,7 +44,7 @@ public class BrowserSelect extends ExternalResource {
     }
 
     @Override
-    protected void after() {
+    public void afterEach(ExtensionContext extensionContext) throws Exception {
         driver.quit();
     }
 }

@@ -1,18 +1,18 @@
 package constructor;
 
 import base.BaseTest;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pom.MainPage;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConstructorTest extends BaseTest {
 
     private MainPage mainPage;
 
-    @Before
+    @BeforeEach
     public void openMainPage() {
 
         mainPage = new MainPage(browserSelect.getDriver());
