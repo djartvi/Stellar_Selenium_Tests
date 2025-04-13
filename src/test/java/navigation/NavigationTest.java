@@ -1,19 +1,15 @@
 package navigation;
 
+import base.BaseTest;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.openqa.selenium.interactions.Actions;
 import pom.*;
 
 import static org.junit.Assert.assertTrue;
 
-public class NavigationTest {
-
-    @Rule
-    public BrowserSelect browserSelect = new BrowserSelect();
+public class NavigationTest extends BaseTest {
 
     private MainPage mainPage;
     private LoginPage loginPage;

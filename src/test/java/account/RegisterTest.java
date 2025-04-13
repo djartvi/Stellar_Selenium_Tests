@@ -1,21 +1,18 @@
 package account;
 
 import api.UserClient;
+import base.BaseTest;
 import credentials.Password;
 import credentials.User;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import pom.*;
 
 import static org.junit.Assert.assertTrue;
 
-public class RegisterTest {
-
-    @Rule
-    public BrowserSelect browserSelect = new BrowserSelect();
+public class RegisterTest extends BaseTest {
 
     private User user;
     private RegisterPage registerPage;
@@ -54,7 +51,9 @@ public class RegisterTest {
     }
 
     @After
+    @DisplayName("Delete user")
     public void deleteUser() throws InterruptedException {
+
         if (registerPage.isRegistered()) {
             userClient.getTokenAndDeleteUser(userClient.login(user));
         }

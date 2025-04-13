@@ -37,6 +37,6 @@ public class AccountPage {
 
     @Step("Check registered account page exists")
     public boolean  isDisplayed() {
-        return driver.findElements(logoutButton).size() > 0;
+        return !driver.findElements(logoutButton).isEmpty();
     }
 }

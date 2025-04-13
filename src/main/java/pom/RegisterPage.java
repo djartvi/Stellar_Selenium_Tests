@@ -58,7 +58,6 @@ public class RegisterPage {
         inputEmail(user.getEmail());
         inputPassword(user.getPassword());
         clickRegisterButton();
-
     }
 
     @Step("Waiting for visibility of login page")
@@ -69,7 +68,7 @@ public class RegisterPage {
 
     @Step("Check wrong password warning under the password field")
     public boolean isWrongPassword() {
-        return driver.findElements(wrongPassword).size() > 0;
+        return !driver.findElements(wrongPassword).isEmpty();
     }
 
     @Step("Check registration of user")

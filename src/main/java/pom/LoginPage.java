@@ -39,6 +39,6 @@ public class LoginPage {
 
     @Step("Check visibility of login page")
     public boolean isDisplayed() {
-        return driver.findElements(loginButton).size() > 0;
+        return !driver.findElements(loginButton).isEmpty();
     }
 }

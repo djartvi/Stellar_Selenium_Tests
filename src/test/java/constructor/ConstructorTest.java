@@ -1,18 +1,14 @@
 package constructor;
 
+import base.BaseTest;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import pom.BrowserSelect;
 import pom.MainPage;
 
 import static org.junit.Assert.assertTrue;
 
-public class ConstructorTest {
-
-    @Rule
-    public BrowserSelect browserSelect = new BrowserSelect();
+public class ConstructorTest extends BaseTest {
 
     private MainPage mainPage;
 

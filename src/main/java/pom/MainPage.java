@@ -16,7 +16,7 @@ import java.util.List;
 public class MainPage {
 
     @Getter
-    private static final String URL = "https://stellarburgers.nomoreparties.site/";
+    private static final String URL = "https://stellarburgers.nomoreparties.site";
 
     @NonNull
     private final WebDriver driver;
@@ -74,12 +74,12 @@ public class MainPage {
 
     @Step("Check visibility of constructor on main page")
     public boolean isConstructorDisplayed() {
-        return driver.findElements(constructor).size() > 0;
+        return !driver.findElements(constructor).isEmpty();
     }
 
     @Step("Check visibility of main page for registered user")
     public boolean registeredView() {
-        return driver.findElements(makeOrderButton).size() > 0;
+        return !driver.findElements(makeOrderButton).isEmpty();
     }
 
     @Step("Go to page " + URL + "{prefix}")
@@ -92,7 +92,7 @@ public class MainPage {
         List<WebElement> elements = driver.findElement(by)
                 .findElements(By.xpath("parent::*[contains(@class, 'current')]"));
 
-        return elements.size() > 0;
+        return !elements.isEmpty();
     }
 
     @Step("Scroll to element")

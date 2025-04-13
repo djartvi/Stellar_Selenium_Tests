@@ -2,21 +2,18 @@ package account;
 
 import api.Token;
 import api.UserClient;
+import base.BaseTest;
 import credentials.User;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import pom.*;
 
 import static org.junit.Assert.assertTrue;
 
-public class LogoutTest {
-
-    @Rule
-    public BrowserSelect browserSelect = new BrowserSelect();
+public class LogoutTest extends BaseTest {
 
     private MainPage mainPage;
     private LoginPage loginPage;
@@ -46,13 +43,13 @@ public class LogoutTest {
     public void logoutTest() {
 
         mainPage.clickAccountButton();
-
         accountPage.clickLogoutButton();
 
         assertTrue(loginPage.isDisplayed());
     }
 
     @After
+    @DisplayName("Delete user")
     public void deleteUser() throws InterruptedException {
         userClient.getTokenAndDeleteUser(login);
     }

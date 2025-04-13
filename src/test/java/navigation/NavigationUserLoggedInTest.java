@@ -2,24 +2,20 @@ package navigation;
 
 import api.Token;
 import api.UserClient;
+import base.BaseTest;
 import credentials.User;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import pom.AccountPage;
-import pom.BrowserSelect;
 import pom.MainPage;
 
 import static org.junit.Assert.assertTrue;
 
-public class NavigationUserLoggedInTest {
-
-    @Rule
-    public BrowserSelect browserSelect = new BrowserSelect();
+public class NavigationUserLoggedInTest extends BaseTest {
 
     private Response login;
     private MainPage mainPage;

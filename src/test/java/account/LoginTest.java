@@ -1,20 +1,17 @@
 package account;
 
 import api.UserClient;
+import base.BaseTest;
 import credentials.User;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import pom.*;
 
 import static org.junit.Assert.assertTrue;
 
-public class LoginTest {
-
-    @Rule
-    public BrowserSelect browserSelect = new BrowserSelect();
+public class LoginTest extends BaseTest {
 
     private User user;
 
@@ -103,7 +100,8 @@ public class LoginTest {
     }
 
     @After
-    public void assertAndDeleteUser() throws InterruptedException {
+    @DisplayName("Delete user")
+    public void deleteUser() throws InterruptedException {
         userClient.getTokenAndDeleteUser(userClient.login(user));
     }
 }

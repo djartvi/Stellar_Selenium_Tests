@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 public class Token {
 
     @Step("Store tokens to local storage")
-    public void storeTokens(WebDriver driver, Response response) throws InterruptedException {
+    public void storeTokens(WebDriver driver, Response response) {
         ExtractResponse extractResponse = new ExtractResponse();
 
         String accessToken = extractResponse.extractValueByKey(response, "accessToken");
