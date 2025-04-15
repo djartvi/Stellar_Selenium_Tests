@@ -10,7 +10,7 @@ Planned to add tests for drag-n-drop in constructor.
 https://code.s3.yandex.net/qa-automation-engineer/java/cheatsheets/paid-track/diplom/api-documentation.pdf.
 
 ## Maven Dependencies
-JUnit 4, Selenium, Rest-Assured, Allure, GSON, Lombok, JavaFaker.
+JUnit 5, Selenium, Rest-Assured, Allure, GSON, Lombok, DataFaker.
 
 ## Plugins
 Surefire, Allure, AspectJ weaver.
