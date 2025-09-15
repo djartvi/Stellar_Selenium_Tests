@@ -24,7 +24,7 @@ public class LoginTest extends BaseTest {
         mainPage = new MainPage(browserSelect.getDriver());
         loginPage = new LoginPage(browserSelect.getDriver());
 
-        user = User.randomUser();
+        user = new User().randomUser();
 
         userClient.register(user);
     }

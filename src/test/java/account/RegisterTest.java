@@ -32,7 +32,7 @@ public class RegisterTest extends BaseTest {
     @DisplayName("Check registration with valid password length")
     public void registerTest() {
 
-        user = User.randomUser(Password.VALID_LENGTH);
+        user = new User().randomUser(Password.VALID_LENGTH);
 
         registerPage.registerUser(user);
 
@@ -43,7 +43,7 @@ public class RegisterTest extends BaseTest {
     @DisplayName("Check registration with invalid password length")
     public void wrongPasswordTest() {
 
-        user = User.randomUser(Password.INVALID_LENGTH);
+        user = new User().randomUser(Password.INVALID_LENGTH);
 
         registerPage.registerUser(user);
 

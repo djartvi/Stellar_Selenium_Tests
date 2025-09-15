@@ -23,7 +23,7 @@ public class NavigationUserLoggedInTest extends BaseTest {
     private AccountPage accountPage;
 
     private final UserClient userClient = new UserClient();
-    private final User user = User.randomUser();
+    private final User user = new User().randomUser();
 
     @BeforeEach
     public void goToRegisteredUserAccount() throws InterruptedException {

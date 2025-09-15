@@ -21,7 +21,7 @@ public class LogoutTest extends BaseTest {
     private Response login;
 
     private final UserClient userClient = new UserClient();
-    private final User user = User.randomUser();
+    private final User user = new User().randomUser();
     private final Token token = new Token();
 
     @BeforeEach
