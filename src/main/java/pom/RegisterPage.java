@@ -73,15 +73,11 @@ public class RegisterPage {
 
     @Step("Check registration of user")
     public boolean isRegistered() {
-        boolean result;
-
         try {
             waitRegistration();
-            result = true;
+            return true;
         } catch (TimeoutException e) {
-            result = false;
+            return false;
         }
-
-        return result;
     }
 }

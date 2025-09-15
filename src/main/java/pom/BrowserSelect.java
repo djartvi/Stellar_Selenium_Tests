@@ -44,7 +44,7 @@ public class BrowserSelect implements BeforeEachCallback, AfterEachCallback {
     }
 
     @Override
-    public void afterEach(ExtensionContext extensionContext) throws Exception {
+    public void afterEach(ExtensionContext extensionContext) {
         driver.quit();
     }
 }

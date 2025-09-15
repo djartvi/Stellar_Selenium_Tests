@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginTest extends BaseTest {
 
     private User user;
-
     private MainPage mainPage;
     private LoginPage loginPage;
     private final UserClient userClient = new UserClient();

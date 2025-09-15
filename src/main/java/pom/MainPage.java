@@ -16,7 +16,7 @@ import java.util.List;
 public class MainPage {
 
     @Getter
-    private static final String URL = "https://stellarburgers.nomoreparties.site";
+    private static final String URL = "https://stellarburgers.nomoreparties.site/";
 
     @NonNull
     private final WebDriver driver;
@@ -82,9 +82,9 @@ public class MainPage {
         return !driver.findElements(makeOrderButton).isEmpty();
     }
 
-    @Step("Go to page " + URL + "{prefix}")
-    public void goToPage(String prefix) {
-        driver.get(MainPage.URL + prefix);
+    @Step("Go to page " + URL + "{postfix}")
+    public void goToPage(String postfix) {
+        driver.get(MainPage.URL + postfix);
     }
 
     @Step("Check active button")
